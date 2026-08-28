@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Conversor web de centímetros a pulgadas y milímetros.">
+  <title>Conversor de medidas · Programación 2</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../ficha_obra_web/index.html"><span>P2</span> PROGRAMACIÓN 2</a>
+    <p>EJERCICIO 2.1 · VERSIÓN WEB</p>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">CONVERTIR + COMPARAR</p>
+      <h1>CM <i>→</i><br><em>IN + MM</em></h1>
+      <p>Ingresá una medida, convertí unidades y comprobá si entra en un marco estándar de 30 centímetros.</p>
+    </section>
+
+    <section class="converter" aria-label="Conversor de medidas">
+      <form id="converter-form">
+        <div class="step"><span>01</span><div><p class="eyebrow">ENTRADA</p><h2>MEDIDA ORIGINAL</h2></div></div>
+        <label for="centimetros">Centímetros</label>
+        <div class="measurement-input">
+          <input id="centimetros" name="centimetros" type="number" min="0.01" step="0.01" placeholder="25" required>
+          <b>CM</b>
+        </div>
+        <div class="quick-values" aria-label="Medidas de ejemplo">
+          <button type="button" data-value="25">25 CM</button>
+          <button type="button" data-value="30">30 CM</button>
+          <button type="button" data-value="45">45 CM</button>
+        </div>
+        <p id="error" class="error" role="alert" hidden></p>
+        <button class="convert-button" type="submit">CONVERTIR →</button>
+      </form>
+
+      <section class="results" aria-live="polite">
+        <div class="step"><span>02</span><div><p class="eyebrow">SALIDA</p><h2>RESULTADOS</h2></div></div>
+        <div class="result-grid">
+          <article><span>PULGADAS</span><strong id="pulgadas">—</strong><small>IN</small></article>
+          <article><span>MILÍMETROS</span><strong id="milimetros">—</strong><small>MM</small></article>
+        </div>
+        <div id="status" class="status waiting">
+          <span id="status-symbol">?</span>
+          <div><b id="status-title">ESPERANDO UNA MEDIDA</b><p id="status-text">El límite del marco es 30 cm.</p></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="frame-check">
+      <div class="frame-heading"><p class="eyebrow">03 · COMPARACIÓN</p><h2>MARCO DE 30 CM</h2></div>
+      <div class="scale">
+        <div class="scale-track"><i id="measure-bar"></i><span class="limit">30 CM</span></div>
+        <div class="scale-labels"><span>0</span><span>15</span><span>30</span></div>
+      </div>
+      <p id="comparison-copy">Ingresá una medida para verla comparada con el marco.</p>
+    </section>
+
+    <aside class="formula">
+      <div><span>PULGADAS</span><b>centímetros ÷ 2,54</b></div>
+      <div><span>MILÍMETROS</span><b>centímetros × 10</b></div>
+      <div><span>CONDICIÓN</span><b>centímetros ≤ 30</b></div>
+    </aside>
+  </main>
+
+  <footer><span>VERSIÓN ADICIONAL</span><p>El ejercicio oficial continúa en <code>conversor.py</code>.</p></footer>
+  <script src="app.js"></script>
+</body>
+</html>
