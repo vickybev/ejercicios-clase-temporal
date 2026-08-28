@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculadora web de presupuestos de impresión.">
+  <title>Presupuesto de impresión · Programación 2</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../conversor_web/index.html"><span>P2</span> PROGRAMACIÓN 2</a>
+    <p>EJERCICIO 2.2 · VERSIÓN WEB</p>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">ÁREA × TARIFA + CONDICIONES</p>
+      <h1>PRESUPUESTO<br><em>DE IMPRESIÓN</em></h1>
+      <div class="rate"><span>TARIFA BASE</span><strong>$450</strong><small>POR M²</small></div>
+    </section>
+
+    <section class="calculator" aria-label="Calculadora de presupuesto">
+      <form id="budget-form">
+        <div class="section-title"><span>01</span><div><p class="eyebrow">ENTRADA</p><h2>DIMENSIONES</h2></div></div>
+        <div class="field-grid">
+          <label>Ancho (cm)<input id="ancho" type="number" min="0.01" step="0.01" placeholder="150" required></label>
+          <label>Alto (cm)<input id="alto" type="number" min="0.01" step="0.01" placeholder="200" required></label>
+        </div>
+        <div class="presets" aria-label="Ejemplos rápidos">
+          <button type="button" data-width="50" data-height="50"><b>MÍNIMO</b><span>50 × 50</span></button>
+          <button type="button" data-width="100" data-height="100"><b>NORMAL</b><span>100 × 100</span></button>
+          <button type="button" data-width="150" data-height="200"><b>RECARGO</b><span>150 × 200</span></button>
+        </div>
+        <p id="error" class="error" role="alert" hidden></p>
+        <button class="calculate" type="submit">CALCULAR PRESUPUESTO →</button>
+      </form>
+
+      <section class="receipt" aria-live="polite">
+        <div class="receipt-top"><span>P2 · IMPRENTA</span><b id="receipt-status">SIN CALCULAR</b></div>
+        <div class="receipt-main">
+          <p>PRECIO FINAL</p>
+          <strong id="precio-final">$—</strong>
+          <span id="detalle">Ingresá las dimensiones de la pieza.</span>
+        </div>
+        <dl>
+          <div><dt>DIMENSIONES</dt><dd id="dimensiones">—</dd></div>
+          <div><dt>SUPERFICIE</dt><dd id="superficie">—</dd></div>
+          <div><dt>PRECIO BASE</dt><dd id="precio-base">—</dd></div>
+          <div><dt>AJUSTE</dt><dd id="ajuste">—</dd></div>
+        </dl>
+      </section>
+    </section>
+
+    <section class="decision-map">
+      <div class="section-title"><span>02</span><div><p class="eyebrow">DECISIÓN</p><h2>¿QUÉ SE APLICA?</h2></div></div>
+      <div class="conditions">
+        <article id="minimum-card"><span>&lt; 0,5 M²</span><h3>MÍNIMO</h3><p>Precio final de $300.</p></article>
+        <article id="normal-card"><span>0,5 A 2 M²</span><h3>BASE</h3><p>$450 por cada m².</p></article>
+        <article id="surcharge-card"><span>&gt; 2 M²</span><h3>+15%</h3><p>Recargo por manipulación.</p></article>
+      </div>
+      <p class="boundary-note"><b>LÍMITES EXACTOS:</b> 0,5 m² y 2 m² usan el precio base porque la consigna dice “menos de 0,5” y “más de 2”.</p>
+    </section>
+
+    <aside class="formula">
+      <div><span>SUPERFICIE</span><b>(ancho × alto) ÷ 10.000</b></div>
+      <div><span>PRECIO BASE</span><b>superficie × $450</b></div>
+      <div><span>RECARGO</span><b>precio base × 1,15</b></div>
+    </aside>
+  </main>
+
+  <footer><span>VERSIÓN ADICIONAL</span><p>El ejercicio oficial continúa en <code>presupuesto.py</code>.</p></footer>
+  <script src="app.js"></script>
+</body>
+</html>
