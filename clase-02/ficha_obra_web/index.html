@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Generador web de fichas técnicas de obra.">
+  <title>Ficha de obra · Programación 2</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span>P2</span> PROGRAMACIÓN 2</div>
+    <p>CLASE 02 · VERSIÓN WEB</p>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">DATOS + DECISIONES</p>
+      <h1>FICHA<br><em>DE OBRA</em></h1>
+      <p class="intro">Completá los datos, calculá la superficie y generá una ficha lista para presentar.</p>
+    </section>
+
+    <section class="workspace" aria-label="Generador de ficha técnica">
+      <form id="obra-form">
+        <div class="form-heading">
+          <span>01</span>
+          <div><p class="eyebrow">ENTRADA</p><h2>DATOS DE LA OBRA</h2></div>
+        </div>
+
+        <label>Título<input id="titulo" name="titulo" type="text" placeholder="Ej.: Sin título" required></label>
+        <label>Autor/a<input id="autor" name="autor" type="text" placeholder="Ej.: Lola Pérez" required></label>
+        <div class="field-row">
+          <label>Año<input id="anio" name="anio" type="number" min="0" max="9999" placeholder="2026" required></label>
+          <label>Ancho (cm)<input id="ancho" name="ancho" type="number" min="0.01" step="0.01" placeholder="100" required></label>
+          <label>Alto (cm)<input id="alto" name="alto" type="number" min="0.01" step="0.01" placeholder="300" required></label>
+        </div>
+        <p id="form-error" class="error" role="alert" hidden></p>
+        <div class="actions">
+          <button class="primary" type="submit">GENERAR FICHA →</button>
+          <button class="secondary" id="reset-button" type="reset">LIMPIAR</button>
+        </div>
+      </form>
+
+      <section id="resultado" class="result" aria-live="polite">
+        <div class="empty-result" id="empty-result">
+          <span>02</span>
+          <p>LA FICHA APARECERÁ ACÁ</p>
+          <div class="shape"></div>
+        </div>
+
+        <article id="obra-card" class="obra-card" hidden>
+          <div class="card-label">FICHA TÉCNICA · P2</div>
+          <div class="art-preview" id="art-preview"><span id="preview-orientation">HORIZONTAL</span></div>
+          <h2 id="resultado-titulo"></h2>
+          <p class="author" id="resultado-autor"></p>
+          <dl>
+            <div><dt>AÑO</dt><dd id="resultado-anio"></dd></div>
+            <div><dt>DIMENSIONES</dt><dd id="resultado-dimensiones"></dd></div>
+            <div><dt>ÁREA</dt><dd id="resultado-area"></dd></div>
+            <div><dt>ORIENTACIÓN</dt><dd id="resultado-orientacion"></dd></div>
+            <div><dt>TAMAÑO</dt><dd id="resultado-tamanio"></dd></div>
+          </dl>
+        </article>
+      </section>
+    </section>
+
+    <aside class="logic-note">
+      <b>LA MISMA LÓGICA DEL EJERCICIO</b>
+      <p>Menor a 1000 cm²: chica · Hasta 5000 cm²: mediana · Más de 5000 cm²: grande.</p>
+    </aside>
+  </main>
+
+  <footer><span>PYTHON → WEB</span><p>Versión adicional. El ejercicio oficial sigue siendo <code>ficha_obra.py</code>.</p></footer>
+  <script src="app.js"></script>
+</body>
+</html>
