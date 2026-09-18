@@ -1,6 +1,6 @@
 # Clase 5: carpetas y pygame
 
-Fuente docente: `C:\Users\Vicky\Documents\PROGRAMACION 2\clase5_teoria.pdf`, 44 páginas. Incorporado el 18/9/2026 como material de la clase pasada, según tu aclaración.
+Fuente docente: `C:\Users\Vicky\Documents\PROGRAMACION 2\clase5_teoria.pdf`, 44 páginas. Incorporado el 18/9/2026 como material de la clase de hoy, viernes 18/9/2026. La clase pasada fue la 4.
 
 ## 1. Organizar archivos por tema
 

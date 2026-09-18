@@ -1,6 +1,6 @@
 # Clase 4: funciones, datos y objetos
 
-Fuente docente: `C:\Users\Vicky\Documents\PROGRAMACION 2\clase4_teoria.pptx`, 42 diapositivas. Incorporado el 18/9/2026 como material de la clase pasada, según tu aclaración.
+Fuente docente: `C:\Users\Vicky\Documents\PROGRAMACION 2\clase4_teoria.pptx`, 42 diapositivas. Incorporado el 18/9/2026. La clase 4 corresponde a la clase pasada; la clase 5 es la de hoy.
 
 ## 1. Funciones: escribir una operación una sola vez
 

@@ -1,6 +1,6 @@
 # Prácticos 4 y 5: soluciones explicadas
 
-Material recibido el 18/9/2026. Estos son los prácticos pendientes de la clase pasada, según tu aclaración; no son apuntes de la clase de hoy.
+Material recibido el 18/9/2026. La clase 4 corresponde a la clase pasada; la clase 5 es la de hoy, viernes 18/9/2026. Esta guía reúne el práctico pendiente de la clase 4 y el material de la clase 5.
 
 Teóricos incorporados posteriormente: [clase 4: funciones, datos y objetos](clase-04/TEORIA.md) y [clase 5: carpetas y pygame](clase-05/TEORIA.md). Se contrastaron los ejercicios con ambos y se agregaron las 39 docstrings que pide la clase 4. Los apuntes separan el contenido docente de las precisiones verificadas.
 
