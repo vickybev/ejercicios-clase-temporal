@@ -2,10 +2,13 @@
 
 Material recibido el 18/9/2026. Estos son los prácticos pendientes de la clase pasada, según tu aclaración; no son apuntes de la clase de hoy.
 
+Teóricos incorporados posteriormente: [clase 4: funciones, datos y objetos](clase-04/TEORIA.md) y [clase 5: carpetas y pygame](clase-05/TEORIA.md). Se contrastaron los ejercicios con ambos y se agregaron las 39 docstrings que pide la clase 4. Los apuntes separan el contenido docente de las precisiones verificadas.
+
 ## Material docente y decisiones de esta solución
 
 - Clase 4: `C:\Users\Vicky\Documents\PROGRAMACION 2\clase4_practico.pptx`, 18 diapositivas.
 - Clase 5: `C:\Users\Vicky\Documents\PROGRAMACION 2\clase5_practico.pdf`, 8 páginas físicas. Su numeración impresa salta de 4 a 9; los ejercicios están en las páginas físicas 5 a 7.
+- Teóricos: `clase4_teoria.pptx` (42 diapositivas) y `clase5_teoria.pdf` (44 páginas), en la misma carpeta docente.
 - La consigna pide una carpeta por clase, un archivo por ejercicio, commits descriptivos y push antes de la clase siguiente.
 - Se permite IA, pero hay que entender y poder explicar el código, o escribir comentarios propios a mano. Los comentarios incluidos acá son explicaciones de apoyo: no sustituyen tus comentarios personales.
 - Se usan funciones, clases, listas, diccionarios, bucles y condiciones. En el práctico 5 se agregan `pygame` y `random`, presentes en la consigna. No se usan comprensiones, herencia ni decoradores.
@@ -101,7 +104,7 @@ Papel empieza con 120 y queda en **118** después de consumir 2. Tinta empieza c
 
 ### 4.7 — integrador.py
 
-La clase Material se repite con la misma definición para que el archivo funcione solo, sin introducir importaciones entre archivos. Las tres funciones siguientes están fuera de la clase y recorren una lista de cinco objetos.
+La clase Material se repite con la misma definición para que el archivo funcione solo y conserve el alcance de la clase 4. El teórico 5 recién incorporado sí enseña importaciones entre archivos y `if __name__ == "__main__"`: permiten reutilizarla sin ejecutar sus pruebas al importar. Las tres funciones siguientes están fuera de la clase y recorren una lista de cinco objetos.
 
 - Valor del inventario: 120 × 10 + 8 × 450 + 0 × 600 + 45 × 30 + 0 × 80 = **6150**.
 - Sin stock: **Tinta color y Cinta**.

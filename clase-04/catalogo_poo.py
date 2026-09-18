@@ -1,6 +1,7 @@
 # Etapa B: la clase reúne los datos y las acciones de una obra.
 class Obra:
     def __init__(self, titulo, autor, anio, precio):
+        """Guarda los datos iniciales de este objeto."""
         self.titulo = titulo
         self.autor = autor
         self.anio = anio
@@ -8,19 +9,23 @@ class Obra:
 
     # Retorna una ficha: quien llama decide si la imprime.
     def ficha(self):
+        """Devuelve el texto que describe esta obra."""
         return f"{self.titulo} - {self.autor} ({self.anio}) - ${self.precio:.2f}"
 
     # Usamos el año del curso para no introducir otro import.
     def antiguedad(self):
+        """Devuelve los años transcurridos desde la obra hasta 2026."""
         return 2026 - self.anio
 
     # El límite puede cambiarse al llamar al método.
     def es_cara(self, limite=2000):
+        """Indica si el precio supera el límite recibido."""
         return self.precio > limite
 
 
 # Las funciones conservan sus responsabilidades, pero trabajan con objetos.
 def agregar_obra(catalogo):
+    """Pide los datos y agrega una obra al catálogo."""
     titulo = input("Título: ")
     autor = input("Autor: ")
     anio = int(input("Año (entero): "))
@@ -29,6 +34,7 @@ def agregar_obra(catalogo):
 
 
 def listar_obras(catalogo):
+    """Muestra las obras numeradas o avisa si no hay ninguna."""
     if len(catalogo) == 0:
         print("El catálogo está vacío.")
     for i in range(len(catalogo)):
@@ -36,6 +42,7 @@ def listar_obras(catalogo):
 
 
 def buscar_por_autor(catalogo, autor):
+    """Devuelve las obras del autor indicado."""
     encontradas = []
     for obra in catalogo:
         if obra.autor.strip().lower() == autor.strip().lower():
@@ -44,6 +51,7 @@ def buscar_por_autor(catalogo, autor):
 
 
 def estadisticas(catalogo):
+    """Devuelve cantidad, total y promedio del catálogo."""
     total = 0
     for obra in catalogo:
         total += obra.precio

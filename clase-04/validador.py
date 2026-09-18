@@ -1,10 +1,12 @@
 # Ambos extremos están incluidos en el intervalo de años válidos.
 def anio_valido(anio):
+    """Indica si el año está entre 1800 y 2026, inclusive."""
     return 1800 <= anio <= 2026
 
 
 # Repetimos el pedido hasta recibir un año válido; return termina la función.
 def pedir_anio():
+    """Pide años enteros hasta recibir uno dentro del intervalo."""
     while True:
         anio = int(input("Año entre 1800 y 2026 (número entero): "))
         if anio_valido(anio):

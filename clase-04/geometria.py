@@ -1,14 +1,17 @@
 # Cada función calcula y retorna su resultado, sin imprimirlo.
 def area_rectangulo(ancho, alto):
+    """Devuelve el área de un rectángulo."""
     return ancho * alto
 
 
 def perimetro_rectangulo(ancho, alto):
+    """Devuelve el perímetro de un rectángulo."""
     return 2 * (ancho + alto)
 
 
 # Reutilizamos las dos funciones y agregamos la orientación.
 def describir(ancho, alto):
+    """Devuelve un texto con área, perímetro y orientación."""
     area = area_rectangulo(ancho, alto)
     perimetro = perimetro_rectangulo(ancho, alto)
     if ancho > alto:

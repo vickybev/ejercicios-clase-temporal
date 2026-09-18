@@ -1,17 +1,21 @@
 # Reutilizamos aquí la clase del 4.6 para que este archivo funcione por sí solo.
 class Material:
     def __init__(self, nombre, precio_unitario, stock):
+        """Guarda los datos iniciales de este objeto."""
         self.nombre = nombre
         self.precio_unitario = precio_unitario
         self.stock = stock
 
     def valor_total(self):
+        """Devuelve el precio unitario multiplicado por el stock."""
         return self.precio_unitario * self.stock
 
     def hay_stock(self):
+        """Indica si hay unidades disponibles del material."""
         return self.stock >= 1
 
     def consumir(self, cantidad):
+        """Descuenta una cantidad positiva si alcanza el stock."""
         if cantidad <= 0 or cantidad > self.stock:
             return False
         self.stock -= cantidad
@@ -20,6 +24,7 @@ class Material:
 
 # Estas funciones están fuera de la clase: reciben la lista completa.
 def valor_inventario(materiales):
+    """Devuelve la suma del valor del stock de los materiales."""
     total = 0
     for material in materiales:
         total += material.valor_total()
@@ -27,6 +32,7 @@ def valor_inventario(materiales):
 
 
 def sin_stock(materiales):
+    """Devuelve los objetos Material que no tienen unidades."""
     agotados = []
     for material in materiales:
         if not material.hay_stock():
@@ -36,6 +42,7 @@ def sin_stock(materiales):
 
 # Comparamos el precio de una unidad, no el valor de todo el stock.
 def mas_caro(materiales):
+    """Devuelve el material de mayor precio unitario, o None."""
     if len(materiales) == 0:
         return None
     mayor = materiales[0]

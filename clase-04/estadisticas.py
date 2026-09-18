@@ -1,5 +1,6 @@
 # La primera obra es la candidata; la reemplazamos si aparece otra más cara.
 def obra_mas_cara(obras):
+    """Devuelve la obra más cara, o None si la lista está vacía."""
     if len(obras) == 0:
         return None
     mayor = obras[0]
@@ -11,6 +12,7 @@ def obra_mas_cara(obras):
 
 # Solo agregamos un autor si todavía no está en la lista.
 def autores(obras):
+    """Devuelve los autores sin repetir sus nombres."""
     resultado = []
     for obra in obras:
         if obra["autor"] not in resultado:
@@ -20,6 +22,7 @@ def autores(obras):
 
 # Cada autor es una clave, y su valor cuenta cuántas obras tiene.
 def obras_por_autor(obras):
+    """Devuelve un diccionario con la cantidad de obras por autor."""
     cantidades = {}
     for obra in obras:
         autor = obra["autor"]
@@ -31,6 +34,7 @@ def obras_por_autor(obras):
 
 # Después del año indicado significa mayor estricto, sin incluir ese año.
 def posteriores_a(obras, anio):
+    """Devuelve las obras hechas después del año indicado."""
     resultado = []
     for obra in obras:
         if obra["anio"] > anio:

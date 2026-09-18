@@ -1,5 +1,6 @@
 # Etapa A: cada obra es un diccionario dentro de una lista.
 def agregar_obra(catalogo):
+    """Pide los datos y agrega una obra al catálogo."""
     titulo = input("Título: ")
     autor = input("Autor: ")
     anio = int(input("Año (entero): "))
@@ -10,6 +11,7 @@ def agregar_obra(catalogo):
 
 # Esta función muestra información; no devuelve una lista nueva.
 def listar_obras(catalogo):
+    """Muestra las obras numeradas o avisa si no hay ninguna."""
     if len(catalogo) == 0:
         print("El catálogo está vacío.")
     for i in range(len(catalogo)):
@@ -19,6 +21,7 @@ def listar_obras(catalogo):
 
 # La búsqueda devuelve una lista y deja la impresión a quien la llama.
 def buscar_por_autor(catalogo, autor):
+    """Devuelve las obras del autor indicado."""
     encontradas = []
     for obra in catalogo:
         if obra["autor"].strip().lower() == autor.strip().lower():
@@ -28,6 +31,7 @@ def buscar_por_autor(catalogo, autor):
 
 # Si no hay obras, usamos promedio cero para evitar dividir por cero.
 def estadisticas(catalogo):
+    """Devuelve cantidad, total y promedio del catálogo."""
     cantidad = len(catalogo)
     total = 0
     for obra in catalogo:

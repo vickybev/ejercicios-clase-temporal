@@ -1,18 +1,22 @@
 # Cada material guarda su precio y la cantidad disponible.
 class Material:
     def __init__(self, nombre, precio_unitario, stock):
+        """Guarda los datos iniciales de este objeto."""
         self.nombre = nombre
         self.precio_unitario = precio_unitario
         self.stock = stock
 
     def valor_total(self):
+        """Devuelve el precio unitario multiplicado por el stock."""
         return self.precio_unitario * self.stock
 
     def hay_stock(self):
+        """Indica si hay unidades disponibles del material."""
         return self.stock >= 1
 
     # Rechazamos cantidades no positivas para no aumentar el stock por error.
     def consumir(self, cantidad):
+        """Descuenta una cantidad positiva si alcanza el stock."""
         if cantidad <= 0 or cantidad > self.stock:
             return False
         self.stock -= cantidad
