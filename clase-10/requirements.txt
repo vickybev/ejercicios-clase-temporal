@@ -1,0 +1,5 @@
+# Propuesta de estudio: Windows x64 y Python 3.12; no es el requirements docente.
+numpy==1.26.4
+opencv-contrib-python==4.11.0.86
+pygame==2.6.1
+mediapipe==0.10.21

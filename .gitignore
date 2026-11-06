@@ -18,3 +18,7 @@ Thumbs.db
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Las pruebas de cámara pueden contener fotos personales.
+clase-10/captura_*.png
+clase-10/tira.png
