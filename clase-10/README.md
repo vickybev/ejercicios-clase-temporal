@@ -80,6 +80,21 @@ al soltar, guardar con s y abrir el PNG para comprobar su contenido. Cerrá con 
 Probá 1 a 7, especialmente Gris, Bordes y Lápiz: tienen que verse sin error
 de canales. Cerrá con la X y abrí de nuevo para comprobar la liberación.
 
+## Ejercicio 10.2: congelar el último cuadro
+
+Ejecutá `clase-10\congelar.py` con el Python de `.venv`. Espacio cambia
+el booleano `congelado`: mientras es verdadero se omite la lectura de la
+cámara. El cartel se dibuja sobre una copia, para conservar limpio el cuadro.
+Mové la mano antes y después de descongelar; **q** cierra.
+
+## Ejercicio 10.3: cabina de fotos
+
+Ejecutá `clase-10\cabina.py`. Espacio inicia cuatro cuentas de tres segundos.
+El bucle sigue leyendo la cámara mientras compara el tiempo; no se detiene
+con `sleep`. Cambiá de pose en cada toma y abrí `clase-10/tira.png`: debería
+medir 320 × 960 y mostrar cuatro cuadros sin números superpuestos. **q** cierra.
+Una secuencia nueva reemplaza la tira anterior.
+
 ## Git: por qué hacemos commits separados
 
 Un commit registra un cambio local con un mensaje; push lo envía a GitHub.
