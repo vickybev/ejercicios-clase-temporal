@@ -108,3 +108,225 @@ Para un proyecto mayor, el docente propone repartir este funcionamiento entre `a
 - **Obligatorio 1:** el título y el índice lo anuncian, pero este PDF termina en la página 44 remitiendo al práctico. No contiene la letra completa; no se deducen sus requisitos a partir del índice.
 
 Referencias externas: [Python: módulos y ejecución directa](https://docs.python.org/3/tutorial/modules.html), [pygame: figuras y argumentos](https://www.pygame.org/docs/ref/draw.html), [pygame: tiempo](https://www.pygame.org/docs/ref/time.html). Las consignas y los ejemplos docentes provienen del PDF identificado al comienzo.
+
+## 9. Registro de clase: repaso, organización e imports
+
+Fuente: fragmento de transcripción aportado durante la clase del 18/9/2026. Corresponde al inicio y a los temas de las páginas 2 a 14 del teórico. Este registro distingue lo expresado verbalmente de las precisiones técnicas.
+
+### Adelanto verbal del Obligatorio 1, todavía tentativo
+
+El docente indica que la letra oficial aún no está disponible y adelanta:
+
+- Trabajo individual: crear un juego 2D de temática libre.
+- Se evaluarán aspectos como la prolijidad, la organización del código y los commits.
+- Se espera coherencia y cierto desarrollo. Menciona incorporar sonido y otros elementos; no hay en este fragmento un mínimo formal ni una rúbrica que permita fijarlos como requisitos definitivos.
+- El dinosaurio del navegador aparece como ejemplo en la conversación, no como tema obligatorio.
+- La letra se comunicará cuando esté disponible. No se confirma una fecha de entrega ni se especifican puntajes, cantidad de niveles o herramientas obligatorias.
+
+La frase transcrita como «letra aleatorio uno» se interpreta como **letra del Obligatorio 1**, por el contexto y el título del teórico. No se reconstruyen las otras palabras ambiguas sobre el trámite de aprobación. Este adelanto no reemplaza la consigna escrita.
+
+### Repaso: referirse a un método y ejecutarlo
+
+El docente recupera el ejemplo de la página 4:
+
+```python
+class Obra:
+    def __init__(self, titulo):
+        """Guarda el título de esta obra."""
+        self.titulo = titulo
+
+    def ficha(self):
+        """Devuelve la ficha como texto."""
+        return f"Obra: {self.titulo}"
+
+obra = Obra("Retrato")
+print(obra.ficha)
+print(obra.ficha())
+```
+
+La primera impresión muestra una representación del **método ligado a ese objeto**, parecida a `<bound method Obra.ficha of <...Obra object at 0x...>>`. No muestra todos los datos de la obra ni ejecuta `ficha`. La dirección representada puede cambiar entre ejecuciones.
+
+La segunda ejecuta el método y muestra **Obra: Retrato**. `self.titulo` contiene el texto guardado al crear la instancia. La diferencia son los **paréntesis `()`**, no los dos puntos mencionados en un tramo de la transcripción. `obra.ficha` tampoco es la variable donde se guarda el título: ese atributo es `obra.titulo`.
+
+### Organizar por responsabilidades
+
+El docente explica que un archivo muy largo dificulta localizar y reutilizar código. Separar por temas también reduce la probabilidad de que varias personas editen las mismas líneas, aunque no elimina todos los conflictos de Git. No se trata de elegir siempre entre un archivo completo propio y otro ajeno: Git puede combinar cambios, y las coincidencias conflictivas se resuelven.
+
+La propuesta es distinguir arranque, ajustes, clases o lógica, y guardar imágenes y sonidos en `assets/`. El ejemplo de colaboración ilustra la utilidad de esa separación, aunque se anuncia que el Obligatorio será individual.
+
+`README.md` explica qué hace el proyecto y cómo ponerlo en funcionamiento. `.gitignore` contiene patrones para excluir archivos no versionados, como cachés o configuraciones locales. **Precisión:** agregar un archivo que ya está versionado al `.gitignore` no lo elimina de Git ni de su historial. [Documentación de Git](https://git-scm.com/docs/gitignore).
+
+### Reutilizar colores desde otro archivo
+
+Ejemplo docente ordenado para poder copiarlo, con ambos archivos en la misma carpeta:
+
+```python
+# colores.py
+NEGRO = (0, 0, 0)
+BLANCO = (255, 255, 255)
+LIMA = (182, 255, 63)
+NAVY = (20, 22, 43)
+
+def es_oscuro(color):
+    """Clasifica el color usando el promedio RGB del ejemplo docente."""
+    r, g, b = color
+    return (r + g + b) / 3 < 128
+```
+
+```python
+# main.py
+import colores
+
+print(colores.LIMA)                 # (182, 255, 63)
+print(colores.es_oscuro(colores.NAVY))  # True
+```
+
+Otra forma es `from colores import NAVY`: después se usa `NAVY` sin el prefijo. Ese import no incorpora el nombre `es_oscuro` al archivo que importa. **Precisión:** seleccionar un nombre no significa ejecutar únicamente ese fragmento del módulo; en la primera importación se ejecuta el código de nivel superior del módulo y se incorporan los nombres solicitados. [Documentación de Python](https://docs.python.org/3/tutorial/modules.html).
+
+El fragmento termina cuando el docente está reformulando cómo describir el import. No se completa esa frase como si se hubiera escuchado su continuación.
+
+## 10. Registro de clase: imports, ejecución y primera ventana
+
+Fuente: segundo fragmento extenso de transcripción del 18/9/2026. Continúa los imports y avanza hasta el dibujo de texto, aproximadamente páginas 14 a 29 del teórico.
+
+### Qué se explicó sobre imports y qué conviene precisar
+
+El docente compara importar un módulo con incorporar un nombre concreto y advierte sobre cadenas de dependencias. La recomendación de organizar los archivos y conocer sus dependencias es útil. Sin embargo, **usar `from modulo import funcion` no evita por sí mismo cargar e inicializar ese módulo**. Ambas formas ejecutan sus instrucciones de nivel superior en la primera importación normal, incluidos sus imports. Cambia qué nombres quedan disponibles en el archivo que importa.
+
+Si un import está dentro del cuerpo de una función, se ejecuta cuando la ejecución llega a esa instrucción al llamar a la función. Importar la función no ejecuta su cuerpo ni analiza sus dependencias para traer únicamente lo que va a necesitar. Esta diferencia depende de dónde está escrito el import, no de elegir `from`.
+
+Los módulos normalmente se reutilizan desde una caché durante la misma ejecución. Por eso un import circular no significa necesariamente un bucle infinito: puede fallar al intentar usar un nombre de un módulo que todavía se está inicializando. Para estos ejercicios, conviene evitar ciclos y trasladar lo compartido a un tercer archivo. [Sistema de imports de Python](https://docs.python.org/3/reference/import.html).
+
+### Qué significa `if __name__ == "__main__"`
+
+El docente usa la idea de «arrancar por acá» para distinguir ejecución e importación. La precisión es que Python sigue ejecutando el archivo de arriba hacia abajo: esa condición no lo hace saltar a un punto de entrada.
+
+```python
+def saludar():
+    """Muestra un saludo."""
+    print("Hola")
+
+if __name__ == "__main__":
+    saludar()
+```
+
+Al ejecutar directamente ese archivo, la condición es verdadera y se llama a `saludar`. Al importarlo normalmente, el nombre es el del módulo y ese bloque se omite. Las instrucciones que estén fuera del bloque siguen ejecutándose durante la importación.
+
+**No existe una regla que permita escribir ese bloque una sola vez en todo el proyecto.** Varios módulos pueden tenerlo para sus propias pruebas; incluso es válido tener más de uno en un archivo, aunque normalmente se agrupa el arranque en uno. Un mismo archivo puede servir como módulo importable y como programa ejecutable. [Python: entorno `__main__`](https://docs.python.org/3/library/__main__.html).
+
+### Reglas de organización recordadas en clase
+
+- Agrupar los imports al comienzo como convención de organización.
+- Evitar dependencias circulares entre archivos.
+- Usar nombres de archivo claros, sin espacios, y no ocultar bibliotecas con nombres como `random.py`, `json.py`, `math.py` o `pygame.py`.
+- El docente propone un prefijo propio como posibilidad; no se registra un prefijo obligatorio.
+
+### Instalar pygame y abrir una ventana
+
+pygame se instala desde una terminal, incluida la integrada en VS Code. No es una extensión de VS Code: es una biblioteca de Python que se instala con pip. Además del dibujo, ofrece recursos para eventos, teclado, mouse, sonido y tiempo; la descripción oral se concentra aquí en el dibujo.
+
+```powershell
+python -m pip install pygame
+```
+
+El ejemplo mínimo del docente abre una ventana, espera dos segundos y termina:
+
+```python
+import pygame
+
+pygame.init()
+pantalla = pygame.display.set_mode((800, 600))
+pygame.display.set_caption("Mi primera ventana")
+pygame.time.wait(2000)
+pygame.quit()
+```
+
+No tiene un bucle que atienda los eventos. Durante la espera no procesa normalmente el cierre ni las interacciones. Que el sistema la marque como no respondiente depende del sistema y del tiempo sin atender eventos; no es una consecuencia segura de que sea negra o dure dos segundos.
+
+### El bucle: escuchar, actualizar, dibujar y limitar el ritmo
+
+En cada vuelta se recogen eventos, se modifica el estado según la lógica y los inputs, se dibuja la escena y se limita la frecuencia. El estado también puede cambiar sin input: el círculo de `rebote.py` se mueve solo.
+
+La comparación con la doble exposición fotográfica ayuda a entender los rastros, pero en un tramo de la explicación oral se intercambian los nombres:
+
+| Instrucción | Responsabilidad |
+|---|---|
+| `pantalla.fill(color)` | Rellena la superficie; usado al inicio del dibujo, tapa la imagen anterior. |
+| `pygame.draw.circle(...)` y otras figuras | Dibujan el estado de esta vuelta sobre la superficie. |
+| `pygame.display.flip()` | Actualiza la pantalla completa con lo dibujado; no limpia el fondo. |
+| `reloj.tick(60)` | Limita aproximadamente a un máximo de 60 vueltas por segundo. |
+
+Fuentes: [pygame: fill](https://www.pygame.org/docs/ref/surface.html#pygame.Surface.fill) y [pygame: flip](https://www.pygame.org/docs/ref/display.html#pygame.display.flip). Esta separación coincide con las páginas 24 y 25 del teórico.
+
+### Dibujar figuras y texto
+
+El origen `(0, 0)` está en la esquina superior izquierda; x crece hacia la derecha e y hacia abajo. Se muestran rectángulos, círculos, líneas y contornos. Un contorno se obtiene indicando un grosor en la función correspondiente; no es una figura nueva llamada «hueco».
+
+Para el texto, la página 29 usa tres pasos:
+
+```python
+# Después de pygame.init(), antes del bucle:
+fuente = pygame.font.SysFont("Arial", 32)
+
+# Dentro del bucle, después de fill() y antes de flip():
+imagen = fuente.render("Puntos: 7", True, (182, 255, 63))
+pantalla.blit(imagen, (20, 20))
+```
+
+`render` convierte el texto en una superficie; `True` pide suavizar los bordes. `blit` la dibuja en la posición indicada: `(20, 20)` ubica la esquina superior izquierda de esa imagen a 20 píxeles de ambos bordes. El texto puede colocarse en otras posiciones. La fuente se crea una sola vez y se reutiliza.
+
+## 11. Registro de clase: interacción y comienzo del práctico
+
+Fuente: siguiente fragmento de transcripción del 18/9/2026; corresponde a teclado, mouse, colisiones, bordes y organización del juego, temas de las páginas 32 a 44 del teórico.
+
+### Teclado: una acción o movimiento continuo
+
+El docente explica que el input cambia el estado: mover un objeto, modificar su velocidad o ejecutar otra acción. Hay que distinguir una pulsación del estado de una tecla mantenida.
+
+- `KEYDOWN` permite reaccionar al presionar una tecla, por ejemplo cambiar el color o borrar la pantalla.
+- `pygame.key.get_pressed()` consulta cuáles están presionadas ahora y sirve para movimiento continuo. No entrega un historial de teclas pulsadas.
+
+En la configuración inicial de pygame la repetición de teclas está desactivada; si se activa explícitamente con `set_repeat`, pueden generarse varios eventos `KEYDOWN` al mantener una tecla. Los ejercicios no activan esa opción. [Referencia de teclado](https://www.pygame.org/docs/ref/key.html).
+
+### Mouse y dibujos persistentes
+
+Se menciona `MOUSEBUTTONDOWN`: técnicamente es un tipo de evento, no una función. Se obtiene al recorrer `pygame.event.get()` y su atributo `pos` indica dónde ocurrió el clic.
+
+El ejemplo oral coincide con el ejercicio 5.3: cada clic agrega un círculo, los anteriores permanecen y Espacio borra todos para empezar de nuevo. La lista guarda los datos y se redibuja después de limpiar el fondo. Nuestra solución está en [pintar.py](pintar.py), que además conserva un color de la paleta para cada círculo.
+
+### Clic sobre un objeto y colisiones
+
+Para un objeto representado por un rectángulo, podemos comprobar si el clic cayó dentro:
+
+```python
+# Dentro del bucle de eventos, con boton definido antes como pygame.Rect:
+if evento.type == pygame.MOUSEBUTTONDOWN:
+    if boton.collidepoint(evento.pos):
+        print("Clic dentro del botón")
+```
+
+`collidepoint` comprueba un punto contra un rectángulo; `colliderect` comprueba la superposición de dos rectángulos. No detectan automáticamente la forma exacta de cualquier dibujo. En Rect, tocar solamente los bordes exteriores entre dos rectángulos no cuenta como superposición. [Referencia de Rect](https://www.pygame.org/docs/ref/rect.html).
+
+### Respetar los bordes
+
+El docente propone detener o hacer rebotar un objeto al llegar al límite de la ventana. Se actualiza su posición, se comprueban y corrigen los límites y después se dibuja. Para un círculo se contempla el radio; para un rectángulo, sus bordes. En el rebote cambia el signo de la velocidad del eje correspondiente. Esto está aplicado en [rebote.py](rebote.py).
+
+### Del ejemplo corto a varios módulos
+
+El docente vuelve a separar el juego por responsabilidades: constantes en `ajustes.py`, jugador en `jugador.py`, funciones auxiliares en `utiles.py` y arranque y bucle en `main.py`, que importa los demás.
+
+Anuncia una demostración de un juego de nave y disparos identificado en la conversación como **Space Invaders**. En este fragmento todavía no muestra el código ni los prompts de esa demostración. No debe confundirse con el ejemplo del PDF, donde un jugador recoge una moneda, ni registrarse como una nueva consigna obligatoria.
+
+### Trabajo indicado en este momento
+
+Mientras prepara su computadora y la pantalla, el docente pide comenzar el práctico. Los tres ejercicios ya preparados son:
+
+| Ejercicio | Archivo | Qué comprobar al ejecutarlo |
+|---|---|---|
+| 5.1 | [fondo.py](fondo.py) | R/V/A cambian el fondo y el color permanece al soltar la tecla. |
+| 5.2 | [rebote.py](rebote.py) | El círculo rebota en los cuatro lados sin salirse. |
+| 5.3 | [pintar.py](pintar.py) | Los clics agregan círculos, permanecen y Espacio los borra. |
+
+Se permite apoyarse en ChatGPT, Copilot o Claude para generar y corregir código. La indicación es experimentar, ejecutar y observar los resultados. Sigue vigente la condición del material docente de comprender el código o escribir comentarios propios.
+
+Después del práctico se anuncia trabajar sobre prompts, ajustes sucesivos y errores del juego. Esa parte queda pendiente de los próximos fragmentos: todavía no hay un prompt concreto ni un error de la demostración para documentar.
