@@ -9,6 +9,7 @@ cap = cv2.VideoCapture(0)
 fotos = []
 activa = False
 inicio = 0.0
+ventana = "10.3 - Espacio: iniciar | Q o Esc: salir"
 try:
     if not cap.isOpened():
         raise RuntimeError("No pude abrir la camara")
@@ -35,9 +36,15 @@ try:
                 numero = max(1, math.ceil(3 - (time.time() - inicio)))
                 cv2.putText(vista, str(numero), (50, 130),
                             cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 255), 5)
-        cv2.imshow("10.3 - Espacio: iniciar | q: salir", vista)
+        cv2.imshow(ventana, vista)
         tecla = cv2.waitKey(1) & 0xFF
-        if tecla == ord("q"):
+        if tecla in (ord("q"), ord("Q"), 27):
+            break
+        try:
+            visible = cv2.getWindowProperty(ventana, cv2.WND_PROP_VISIBLE)
+        except cv2.error:
+            break
+        if visible < 1:
             break
         if tecla == ord(" ") and not activa:
             fotos = []

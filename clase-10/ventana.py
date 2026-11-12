@@ -1,4 +1,4 @@
-"""10.1 de referencia. 1..7: filtros; X o Escape: salir."""
+"""10.1 de referencia. 1..7: filtros. Escape o cruz de la ventana para salir."""
 import cv2
 import pygame
 import filtros
@@ -22,25 +22,27 @@ try:
     if ancho <= 0 or alto <= 0:
         raise RuntimeError("La camara no informo un tamano valido")
     pantalla = pygame.display.set_mode((ancho, alto))
-    pygame.display.set_caption("10.1 - 1..7: filtros | X: salir")
+    pygame.display.set_caption("10.1 Pygame - 1..7: filtros | Esc: salir")
     reloj = pygame.time.Clock()
     fuente = pygame.font.Font(None, 28)
     nombre, aplicar = FILTROS[pygame.K_1]
     andando = True
     while andando:
         for evento in pygame.event.get():
-            if evento.type == pygame.QUIT:
+            if evento.type in (pygame.QUIT, pygame.WINDOWCLOSE):
                 andando = False
+                break
             elif evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_ESCAPE:
                     andando = False
+                    break
                 elif evento.key in FILTROS:
                     nombre, aplicar = FILTROS[evento.key]
         if not andando:
             break
         ok, frame = cap.read()
         if not ok:
-            break
+            raise RuntimeError("No pude leer la camara. Cerra las otras ventanas que la esten usando y volve a intentar.")
         frame = cv2.flip(frame, 1)
         if frame.shape[:2] != (alto, ancho):
             frame = cv2.resize(frame, (ancho, alto))
@@ -52,5 +54,7 @@ try:
         pygame.display.flip()
         reloj.tick(30)
 finally:
-    cap.release()
-    pygame.quit()
+    try:
+        pygame.quit()
+    finally:
+        cap.release()
