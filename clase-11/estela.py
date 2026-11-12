@@ -1,4 +1,4 @@
-"""11.2: 1 color, 2 cara, 3 mano. b borra; X sale."""
+"""11.2 ampliado: dibujo persistente. B borra, Esc o la cruz cierran."""
 import cv2
 import pygame
 import vision
@@ -18,11 +18,13 @@ try:
         raise RuntimeError("La camara no entrego un cuadro")
     alto, ancho = frame.shape[:2]
     pantalla = pygame.display.set_mode((ancho, alto))
-    pygame.display.set_caption("11.2 - Estela | b borra | 1..3 detectores")
+    pygame.display.set_caption("11.2 - Dibujar | B: borrar | Esc: salir | 1..3: detector")
     fuente = pygame.font.Font(None, 26)
     reloj = pygame.time.Clock()
-    nombre, detectar = DETECTORES[pygame.K_1]
-    puntos = []
+    nombre, detectar = DETECTORES[pygame.K_3]
+    dibujo = pygame.Surface((ancho, alto), pygame.SRCALPHA)
+    dibujo.fill((0, 0, 0, 0))
+    anterior = None
     andando = True
     while andando:
         for evento in pygame.event.get():
@@ -33,9 +35,10 @@ try:
                     andando = False
                 elif evento.key in DETECTORES:
                     nombre, detectar = DETECTORES[evento.key]
-                    puntos = []  # No unir posiciones de detectores distintos.
+                    anterior = None
                 elif evento.key == pygame.K_b:
-                    puntos = []
+                    dibujo.fill((0, 0, 0, 0))
+                    anterior = None
         if not andando:
             break
         ok, frame = cap.read()
@@ -46,12 +49,15 @@ try:
             frame = cv2.resize(frame, (ancho, alto))
         pos = detectar(frame)
         if pos is not None:
-            puntos.append(pos)
-            puntos = puntos[-40:]  # Conservar solamente los últimos cuarenta.
+            if anterior is not None:
+                pygame.draw.line(dibujo, (182, 255, 63), anterior, pos, 4)
+            else:
+                pygame.draw.circle(dibujo, (182, 255, 63), pos, 2)
+        # Si se pierde la detección, el siguiente punto empieza otro trazo.
+        anterior = pos
         superficie = pygame.image.frombuffer(frame.tobytes(), (ancho, alto), "BGR")
         pantalla.blit(superficie, (0, 0))
-        if len(puntos) >= 2:
-            pygame.draw.lines(pantalla, (182, 255, 63), False, puntos, 4)
+        pantalla.blit(dibujo, (0, 0))
         if pos is not None:
             pygame.draw.circle(pantalla, (182, 255, 63), pos, 18, 3)
         estado = nombre if pos is not None else nombre + ": no veo nada"

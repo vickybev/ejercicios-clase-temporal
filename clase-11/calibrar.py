@@ -7,6 +7,10 @@ cap = cv2.VideoCapture(0)
 minimo = (5, 100, 100)
 maximo = (20, 255, 255)
 ver_mascara = False
+seleccion = None
+color_elegido = (0, 0, 0)
+posicion_clic = None
+marcar_hasta = 0
 try:
     if not cap.isOpened():
         raise RuntimeError("No pude abrir la camara")
@@ -18,7 +22,8 @@ try:
     # El clic usa la imagen que la persona acaba de ver, no otra posterior.
     hsv_mostrado = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     pantalla = pygame.display.set_mode((ancho, alto))
-    pygame.display.set_caption("11.1 - Clic: tono | m: mascara | X: salir")
+    pygame.display.set_caption("11.1 - Clic: elegir color | M: mascara | Esc: salir")
+    fuente = pygame.font.Font(None, 24)
     reloj = pygame.time.Clock()
     andando = True
     while andando:
@@ -32,8 +37,12 @@ try:
                     ver_mascara = not ver_mascara
             elif evento.type == pygame.MOUSEBUTTONDOWN and evento.button == 1:
                 x, y = evento.pos
-                if 0 <= x < ancho and 0 <= y < alto:
+                if 0 <= x < ancho and 56 <= y < alto:
                     h, s, v = [int(valor) for valor in hsv_mostrado[y, x]]
+                    seleccion = (h, s, v)
+                    color_elegido = tuple(int(canal) for canal in frame[y, x][::-1])
+                    posicion_clic = (x, y)
+                    marcar_hasta = pygame.time.get_ticks() + 1200
                     minimo = (max(0, h - 10), 100, 100)
                     maximo = (min(179, h + 10), 255, 255)
                     print("HSV:", (h, s, v))
@@ -55,6 +64,21 @@ try:
             salida = frame
         superficie = pygame.image.frombuffer(salida.tobytes(), (ancho, alto), "BGR")
         pantalla.blit(superficie, (0, 0))
+        # El aro confirma dónde se hizo clic durante 1,2 segundos.
+        if posicion_clic is not None and pygame.time.get_ticks() < marcar_hasta:
+            pygame.draw.circle(pantalla, (0, 0, 0), posicion_clic, 15, 5)
+            pygame.draw.circle(pantalla, (255, 255, 255), posicion_clic, 15, 2)
+        pygame.draw.rect(pantalla, (20, 20, 20), (0, 0, ancho, 56))
+        if seleccion is None:
+            mensaje = "Hace clic en el objeto para elegir su color"
+        else:
+            pygame.draw.rect(pantalla, color_elegido, (8, 8, 32, 32))
+            pygame.draw.rect(pantalla, (255, 255, 255), (8, 8, 32, 32), 1)
+            mensaje = f"Color elegido - HSV {seleccion}"
+        texto = fuente.render(mensaje, True, (255, 255, 255))
+        pantalla.blit(texto, (48, 6))
+        ayuda = fuente.render("M: alternar mascara | Esc: salir", True, (220, 220, 220))
+        pantalla.blit(ayuda, (48, 30))
         pygame.display.flip()
         reloj.tick(30)
 finally:
